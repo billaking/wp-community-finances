@@ -40,7 +40,7 @@ class WCF_Database {
 
 		$data = wp_parse_args( $data, $defaults );
 
-		return $wpdb->insert(
+		$result = $wpdb->insert(
 			self::get_table_name(),
 			array(
 				'transaction_date' => $data['transaction_date'],
@@ -52,6 +52,12 @@ class WCF_Database {
 			),
 			array( '%s', '%s', '%f', '%s', '%s', '%d' )
 		);
+
+		if ( false === $result ) {
+			error_log( 'WCF Database Error: Failed to insert transaction - ' . $wpdb->last_error );
+		}
+
+		return $result;
 	}
 
 	/**
@@ -146,11 +152,17 @@ class WCF_Database {
 		global $wpdb;
 
 		$income = $wpdb->get_var(
-			"SELECT SUM(amount) FROM " . self::get_table_name() . " WHERE transaction_type = 'income'"
+			$wpdb->prepare(
+				"SELECT SUM(amount) FROM " . self::get_table_name() . " WHERE transaction_type = %s",
+				'income'
+			)
 		);
 
 		$expense = $wpdb->get_var(
-			"SELECT SUM(amount) FROM " . self::get_table_name() . " WHERE transaction_type = 'expense'"
+			$wpdb->prepare(
+				"SELECT SUM(amount) FROM " . self::get_table_name() . " WHERE transaction_type = %s",
+				'expense'
+			)
 		);
 
 		return array(
