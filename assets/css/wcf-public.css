@@ -1,0 +1,248 @@
+/* WP Community Finances - Public Styles */
+
+.wcf-transaction-list,
+.wcf-balance,
+.wcf-add-transaction-form,
+.wcf-summary {
+	margin: 20px 0;
+	padding: 20px;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+/* Tables */
+.wcf-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 15px 0;
+}
+
+.wcf-table th,
+.wcf-table td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+.wcf-table th {
+	background-color: #f5f5f5;
+	font-weight: 600;
+}
+
+.wcf-table tbody tr:hover {
+	background-color: #f9f9f9;
+}
+
+/* Badges */
+.wcf-badge {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.wcf-badge-income {
+	background-color: #d4edda;
+	color: #155724;
+}
+
+.wcf-badge-expense {
+	background-color: #f8d7da;
+	color: #721c24;
+}
+
+/* Amounts */
+.wcf-amount-income {
+	color: #28a745;
+	font-weight: 600;
+}
+
+.wcf-amount-expense {
+	color: #dc3545;
+	font-weight: 600;
+}
+
+/* Balance Display */
+.wcf-balance-details,
+.wcf-balance-simple {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.wcf-balance-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #eee;
+}
+
+.wcf-balance-total {
+	border-bottom: none;
+	border-top: 2px solid #333;
+	padding-top: 15px;
+	margin-top: 10px;
+}
+
+.wcf-balance-label {
+	font-weight: 600;
+	color: #333;
+}
+
+.wcf-balance-value {
+	font-size: 1.3em;
+	font-weight: 700;
+}
+
+.wcf-income {
+	color: #28a745;
+}
+
+.wcf-expense {
+	color: #dc3545;
+}
+
+.wcf-positive {
+	color: #28a745;
+}
+
+.wcf-negative {
+	color: #dc3545;
+}
+
+/* Forms */
+.wcf-form {
+	max-width: 600px;
+}
+
+.wcf-form-field {
+	margin-bottom: 20px;
+}
+
+.wcf-form-field label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: 600;
+	color: #333;
+}
+
+.wcf-form-field input[type="text"],
+.wcf-form-field input[type="number"],
+.wcf-form-field input[type="date"],
+.wcf-form-field select {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.wcf-form-field input[type="text"]:focus,
+.wcf-form-field input[type="number"]:focus,
+.wcf-form-field input[type="date"]:focus,
+.wcf-form-field select:focus {
+	outline: none;
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+.wcf-button {
+	background-color: #2271b1;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.wcf-button:hover {
+	background-color: #135e96;
+}
+
+/* Messages */
+.wcf-message {
+	padding: 12px 20px;
+	margin-bottom: 20px;
+	border-radius: 4px;
+}
+
+.wcf-success {
+	background-color: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+
+.wcf-error {
+	background-color: #f8d7da;
+	color: #721c24;
+	border: 1px solid #f5c6cb;
+}
+
+/* Summary */
+.wcf-summary-balance {
+	margin-bottom: 30px;
+}
+
+.wcf-summary-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
+	margin-top: 20px;
+}
+
+.wcf-summary-card {
+	padding: 20px;
+	background: #f9f9f9;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.wcf-summary-total {
+	background: #e9ecef;
+	border: 2px solid #333;
+}
+
+.wcf-summary-label {
+	display: block;
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 10px;
+}
+
+.wcf-summary-amount {
+	display: block;
+	font-size: 24px;
+	font-weight: 700;
+}
+
+.wcf-summary-categories {
+	margin-top: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.wcf-table {
+		font-size: 14px;
+	}
+	
+	.wcf-table th,
+	.wcf-table td {
+		padding: 8px;
+	}
+	
+	.wcf-summary-grid {
+		grid-template-columns: 1fr;
+	}
+	
+	.wcf-balance-item {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 5px;
+	}
+}
