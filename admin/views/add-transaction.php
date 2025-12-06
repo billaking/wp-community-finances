@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<input type="date" 
 						   id="transaction_date" 
 						   name="transaction_date" 
-						   value="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>" 
+						   value="<?php echo esc_attr( current_time( 'Y-m-d' ) ); ?>" 
 						   class="regular-text">
 				</td>
 			</tr>

@@ -183,13 +183,13 @@ class WCF_Shortcodes {
 		ob_start();
 		?>
 		<div class="wcf-add-transaction-form">
-			<?php if ( isset( $_GET['wcf_message'] ) && 'success' === $_GET['wcf_message'] ) : ?>
+			<?php if ( isset( $_GET['wcf_message'] ) && 'success' === sanitize_text_field( wp_unslash( $_GET['wcf_message'] ) ) ) : ?>
 				<div class="wcf-message wcf-success">
 					<p><?php esc_html_e( 'Transaction added successfully!', 'wp-community-finances' ); ?></p>
 				</div>
 			<?php endif; ?>
 
-			<?php if ( isset( $_GET['wcf_message'] ) && 'error' === $_GET['wcf_message'] ) : ?>
+			<?php if ( isset( $_GET['wcf_message'] ) && 'error' === sanitize_text_field( wp_unslash( $_GET['wcf_message'] ) ) ) : ?>
 				<div class="wcf-message wcf-error">
 					<p><?php esc_html_e( 'Error adding transaction. Please try again.', 'wp-community-finances' ); ?></p>
 				</div>
@@ -200,7 +200,7 @@ class WCF_Shortcodes {
 				
 				<div class="wcf-form-field">
 					<label for="wcf_transaction_date"><?php esc_html_e( 'Date', 'wp-community-finances' ); ?></label>
-					<input type="date" id="wcf_transaction_date" name="transaction_date" value="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>" required>
+					<input type="date" id="wcf_transaction_date" name="transaction_date" value="<?php echo esc_attr( current_time( 'Y-m-d' ) ); ?>" required>
 				</div>
 
 				<div class="wcf-form-field">

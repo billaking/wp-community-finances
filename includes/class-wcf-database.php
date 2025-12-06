@@ -73,22 +73,37 @@ class WCF_Database {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$where = '';
-		if ( ! empty( $args['transaction_type'] ) ) {
-			$where = $wpdb->prepare( 'WHERE transaction_type = %s', $args['transaction_type'] );
+		// Build WHERE clause safely.
+		$where_clause = '';
+		$where_values = array();
+		if ( ! empty( $args['transaction_type'] ) && in_array( $args['transaction_type'], array( 'income', 'expense' ), true ) ) {
+			$where_clause = 'WHERE transaction_type = %s';
+			$where_values[] = $args['transaction_type'];
 		}
 
-		$order_by = sanitize_sql_orderby( $args['order_by'] . ' ' . $args['order'] );
-		if ( ! $order_by ) {
-			$order_by = 'transaction_date DESC';
+		// Validate and sanitize ORDER BY.
+		$allowed_order_by = array( 'transaction_date', 'amount', 'description', 'category', 'id' );
+		$order_by_field = in_array( $args['order_by'], $allowed_order_by, true ) ? $args['order_by'] : 'transaction_date';
+		$order_direction = 'ASC' === strtoupper( $args['order'] ) ? 'ASC' : 'DESC';
+		$order_by = $order_by_field . ' ' . $order_direction;
+
+		// Build final query.
+		$sql = "SELECT * FROM " . self::get_table_name() . " $where_clause ORDER BY $order_by LIMIT %d OFFSET %d";
+
+		// Add WHERE values to prepare arguments.
+		$prepare_args = array_merge( $where_values, array( $args['limit'], $args['offset'] ) );
+
+		if ( ! empty( $where_values ) ) {
+			return $wpdb->get_results(
+				$wpdb->prepare( $sql, ...$prepare_args ),
+				ARRAY_A
+			);
+		} else {
+			return $wpdb->get_results(
+				$wpdb->prepare( $sql, $args['limit'], $args['offset'] ),
+				ARRAY_A
+			);
 		}
-
-		$sql = "SELECT * FROM " . self::get_table_name() . " $where ORDER BY $order_by LIMIT %d OFFSET %d";
-
-		return $wpdb->get_results(
-			$wpdb->prepare( $sql, $args['limit'], $args['offset'] ),
-			ARRAY_A
-		);
 	}
 
 	/**
@@ -154,14 +169,16 @@ class WCF_Database {
 	public static function get_summary_by_category( $transaction_type = '' ) {
 		global $wpdb;
 
-		$where = '';
-		if ( ! empty( $transaction_type ) ) {
-			$where = $wpdb->prepare( 'WHERE transaction_type = %s', $transaction_type );
+		// Build WHERE clause safely.
+		$where_clause = '';
+		if ( ! empty( $transaction_type ) && in_array( $transaction_type, array( 'income', 'expense' ), true ) ) {
+			$where_clause = $wpdb->prepare( 'WHERE transaction_type = %s', $transaction_type );
 		}
 
+		// Build the query with proper preparation.
 		$sql = "SELECT category, SUM(amount) as total, transaction_type 
 				FROM " . self::get_table_name() . " 
-				$where 
+				{$where_clause}
 				GROUP BY category, transaction_type 
 				ORDER BY total DESC";
 

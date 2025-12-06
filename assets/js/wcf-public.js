@@ -34,8 +34,8 @@
 			var $this = $(this);
 			var text = $this.text();
 			
-			// Only animate if it's a number
-			if (text.match(/\$[\d,]+\.?\d*/)) {
+			// Only animate if it contains a dollar amount
+			if (text.indexOf('$') !== -1 && text.match(/[\d,]+\.?\d*/)) {
 				$this.css('opacity', '0').animate({
 					opacity: 1
 				}, 600);
