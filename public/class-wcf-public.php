@@ -8,7 +8,7 @@
 /**
  * Public class.
  */
-class WCF_Public {
+class BK_FIN_Public {
 
 	/**
 	 * The ID of this plugin.

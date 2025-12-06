@@ -1,0 +1,299 @@
+/* Admin Styles - WP Community Design System */
+
+/* Dashboard Stats Grid */
+.bk-fin-dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.bk-fin-stat-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: box-shadow 0.3s;
+}
+
+.bk-fin-stat-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.bk-fin-stat-icon {
+    font-size: 40px;
+    color: #2271b1;
+}
+
+.bk-fin-stat-income .bk-fin-stat-icon,
+.bk-fin-income-icon {
+    color: #4caf50;
+}
+
+.bk-fin-stat-expense .bk-fin-stat-icon,
+.bk-fin-expense-icon {
+    color: #f44336;
+}
+
+.bk-fin-stat-balance .bk-fin-stat-icon,
+.bk-fin-balance-icon {
+    color: #2196f3;
+}
+
+.bk-fin-stat-content h3 {
+    margin: 0 0 5px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.bk-fin-stat-content p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Amount Colors */
+.bk-fin-amount-income {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.bk-fin-amount-expense {
+    color: #f44336;
+    font-weight: 600;
+}
+
+.bk-fin-amount-balance {
+    color: #2196f3;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* Balance Card */
+.bk-fin-balance-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.bk-fin-balance-card h3 {
+    margin: 0 0 15px;
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+}
+
+.bk-fin-balance-amount {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2196f3;
+}
+
+/* Transaction Table */
+.bk-fin-transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.bk-fin-transactions-table thead {
+    background: #f5f5f5;
+}
+
+.bk-fin-transactions-table th {
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #23282d;
+    border-bottom: 2px solid #ddd;
+}
+
+.bk-fin-transactions-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.bk-fin-transactions-table tbody tr:hover {
+    background: #f9f9f9;
+}
+
+.bk-fin-transactions-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Form Styles */
+.bk-fin-form-row {
+    margin-bottom: 20px;
+}
+
+.bk-fin-form-row label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #23282d;
+}
+
+.bk-fin-form-row input[type="text"],
+.bk-fin-form-row input[type="number"],
+.bk-fin-form-row input[type="date"],
+.bk-fin-form-row textarea,
+.bk-fin-form-row select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.bk-fin-form-row input:focus,
+.bk-fin-form-row textarea:focus,
+.bk-fin-form-row select:focus {
+    border-color: #2271b1;
+    outline: none;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Buttons */
+.bk-fin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.bk-fin-btn:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-decoration: none;
+}
+
+.bk-fin-btn-primary {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+}
+
+.bk-fin-btn-primary:hover {
+    background: #135e96;
+    border-color: #135e96;
+}
+
+.bk-fin-btn-success {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: #fff;
+}
+
+.bk-fin-btn-success:hover {
+    background: #45a049;
+    border-color: #45a049;
+}
+
+.bk-fin-btn-danger {
+    background: #f44336;
+    border-color: #f44336;
+    color: #fff;
+}
+
+.bk-fin-btn-danger:hover {
+    background: #da190b;
+    border-color: #da190b;
+}
+
+/* Messages */
+.bk-fin-message {
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin: 15px 0;
+    border-left: 4px solid;
+}
+
+.bk-fin-message-success {
+    background: #d4edda;
+    border-color: #4caf50;
+    color: #155724;
+}
+
+.bk-fin-message-error {
+    background: #f8d7da;
+    border-color: #f44336;
+    color: #721c24;
+}
+
+.bk-fin-message-info {
+    background: #d1ecf1;
+    border-color: #2196f3;
+    color: #0c5460;
+}
+
+/* Dashboard Sections */
+.bk-fin-dashboard-section {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.bk-fin-dashboard-section h2 {
+    margin-top: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1d2327;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+/* Type Badges */
+.bk-fin-type-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.bk-fin-type-income {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.bk-fin-type-expense {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .bk-fin-dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .bk-fin-transactions-table {
+        font-size: 12px;
+    }
+
+    .bk-fin-transactions-table th,
+    .bk-fin-transactions-table td {
+        padding: 8px 10px;
+    }
+}

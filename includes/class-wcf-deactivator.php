@@ -8,7 +8,7 @@
 /**
  * Deactivator class.
  */
-class WCF_Deactivator {
+class BK_FIN_Deactivator {
 
 	/**
 	 * Deactivate the plugin.

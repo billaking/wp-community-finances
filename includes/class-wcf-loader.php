@@ -8,7 +8,7 @@
 /**
  * Loader class.
  */
-class WCF_Loader {
+class BK_FIN_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

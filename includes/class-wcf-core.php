@@ -8,12 +8,12 @@
 /**
  * Core plugin class.
  */
-class WCF_Core {
+class BK_FIN_Core {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks.
 	 *
-	 * @var WCF_Loader
+	 * @var BK_FIN_Loader
 	 */
 	protected $loader;
 
@@ -36,7 +36,7 @@ class WCF_Core {
 	 */
 	public function __construct() {
 		$this->version     = WP_COMMUNITY_FINANCES_VERSION;
-		$this->plugin_name = 'wp-community-finances';
+		$this->plugin_name = 'bk-finances';
 
 		$this->load_dependencies();
 		$this->define_admin_hooks();
@@ -53,31 +53,31 @@ class WCF_Core {
 		require_once WP_COMMUNITY_FINANCES_PATH . 'public/class-wcf-public.php';
 		require_once WP_COMMUNITY_FINANCES_PATH . 'public/class-wcf-shortcodes.php';
 
-		$this->loader = new WCF_Loader();
+		$this->loader = new BK_FIN_Loader();
 	}
 
 	/**
 	 * Register all of the hooks related to the admin area functionality.
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new WCF_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new BK_FIN_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
-		$this->loader->add_action( 'admin_post_wcf_add_transaction', $plugin_admin, 'handle_add_transaction' );
-		$this->loader->add_action( 'admin_post_wcf_delete_transaction', $plugin_admin, 'handle_delete_transaction' );
+		$this->loader->add_action( 'admin_post_bk_fin_add_transaction', $plugin_admin, 'handle_add_transaction' );
+		$this->loader->add_action( 'admin_post_bk_fin_delete_transaction', $plugin_admin, 'handle_delete_transaction' );
 	}
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality.
 	 */
 	private function define_public_hooks() {
-		$plugin_public = new WCF_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new BK_FIN_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		// Register shortcodes.
-		$shortcodes = new WCF_Shortcodes();
+		$shortcodes = new BK_FIN_Shortcodes();
 		$this->loader->add_action( 'init', $shortcodes, 'register_shortcodes' );
 	}
 
@@ -100,7 +100,7 @@ class WCF_Core {
 	/**
 	 * The reference to the class that orchestrates the hooks.
 	 *
-	 * @return WCF_Loader
+	 * @return BK_FIN_Loader
 	 */
 	public function get_loader() {
 		return $this->loader;

@@ -7,9 +7,9 @@
 
 	$(document).ready(function() {
 		// Form validation
-		$('.wcf-form').on('submit', function(e) {
-			var amount = $('#wcf_amount').val();
-			var description = $('#wcf_description').val();
+		$('.bkFin-form').on('submit', function(e) {
+			var amount = $('#bkFin_amount').val();
+			var description = $('#bkFin_description').val();
 
 			if (!amount || parseFloat(amount) <= 0) {
 				alert('Please enter a valid amount.');
@@ -26,11 +26,11 @@
 
 		// Auto-dismiss success messages
 		setTimeout(function() {
-			$('.wcf-message').fadeOut('slow');
+			$('.bkFin-message').fadeOut('slow');
 		}, 5000);
 
 		// Animate numbers on page load
-		$('.wcf-balance-value, .wcf-summary-amount').each(function() {
+		$('.bkFin-balance-value, .bkFin-summary-amount').each(function() {
 			var $this = $(this);
 			var text = $this.text();
 			

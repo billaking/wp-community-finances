@@ -8,7 +8,7 @@
 /**
  * Database class.
  */
-class WCF_Database {
+class BK_FIN_Database {
 
 	/**
 	 * Get the table name.
@@ -17,7 +17,7 @@ class WCF_Database {
 	 */
 	public static function get_table_name() {
 		global $wpdb;
-		return $wpdb->prefix . 'wcf_transactions';
+		return $wpdb->prefix . 'bk_fin_transactions';
 	}
 
 	/**
@@ -35,6 +35,7 @@ class WCF_Database {
 			'amount'           => 0,
 			'transaction_type' => 'expense',
 			'category'         => '',
+			'group_id'         => 0,
 			'created_by'       => get_current_user_id(),
 		);
 
@@ -48,9 +49,10 @@ class WCF_Database {
 				'amount'           => floatval( $data['amount'] ),
 				'transaction_type' => sanitize_text_field( $data['transaction_type'] ),
 				'category'         => sanitize_text_field( $data['category'] ),
+				'group_id'         => intval( $data['group_id'] ),
 				'created_by'       => intval( $data['created_by'] ),
 			),
-			array( '%s', '%s', '%f', '%s', '%s', '%d' )
+			array( '%s', '%s', '%f', '%s', '%s', '%d', '%d' )
 		);
 
 		if ( false === $result ) {
@@ -188,12 +190,88 @@ class WCF_Database {
 		}
 
 		// Build the query with proper preparation.
-		$sql = "SELECT category, SUM(amount) as total, transaction_type 
-				FROM " . self::get_table_name() . " 
+		$sql = "SELECT category, SUM(amount) as total, transaction_type
+				FROM " . self::get_table_name() . "
 				{$where_clause}
-				GROUP BY category, transaction_type 
+				GROUP BY category, transaction_type
 				ORDER BY total DESC";
 
 		return $wpdb->get_results( $sql, ARRAY_A );
+	}
+
+	/**
+	 * Get transactions by group ID.
+	 *
+	 * @param int   $group_id Group ID from WP Community Core.
+	 * @param array $args     Query arguments.
+	 * @return array
+	 */
+	public static function get_group_transactions( $group_id, $args = array() ) {
+		global $wpdb;
+
+		$defaults = array(
+			'limit'            => 50,
+			'offset'           => 0,
+			'transaction_type' => '',
+			'order_by'         => 'transaction_date',
+			'order'            => 'DESC',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		// Build WHERE clause.
+		$where_conditions = array( 'group_id = %d' );
+		$where_values     = array( $group_id );
+
+		if ( ! empty( $args['transaction_type'] ) && in_array( $args['transaction_type'], array( 'income', 'expense' ), true ) ) {
+			$where_conditions[] = 'transaction_type = %s';
+			$where_values[]     = $args['transaction_type'];
+		}
+
+		$where_clause = 'WHERE ' . implode( ' AND ', $where_conditions );
+
+		// Validate and sanitize ORDER BY.
+		$allowed_order_by = array( 'transaction_date', 'amount', 'description', 'category', 'id' );
+		$order_by_field   = in_array( $args['order_by'], $allowed_order_by, true ) ? $args['order_by'] : 'transaction_date';
+		$order_direction  = 'ASC' === strtoupper( $args['order'] ) ? 'ASC' : 'DESC';
+		$order_by         = $order_by_field . ' ' . $order_direction;
+
+		// Build final query.
+		$sql          = \"SELECT * FROM \" . self::get_table_name() . \" $where_clause ORDER BY $order_by LIMIT %d OFFSET %d\";
+		$prepare_args = array_merge( $where_values, array( $args['limit'], $args['offset'] ) );
+
+		return $wpdb->get_results( $wpdb->prepare( $sql, ...$prepare_args ), ARRAY_A );
+	}
+
+	/**
+	 * Get group balance (income vs expense).
+	 *
+	 * @param int $group_id Group ID from WP Community Core.
+	 * @return array Balance information.
+	 */
+	public static function get_group_balance( $group_id ) {
+		global $wpdb;
+
+		$income = $wpdb->get_var(
+			$wpdb->prepare(
+				\"SELECT SUM(amount) FROM \" . self::get_table_name() . \" WHERE group_id = %d AND transaction_type = %s\",
+				$group_id,
+				'income'
+			)
+		);
+
+		$expense = $wpdb->get_var(
+			$wpdb->prepare(
+				\"SELECT SUM(amount) FROM \" . self::get_table_name() . \" WHERE group_id = %d AND transaction_type = %s\",
+				$group_id,
+				'expense'
+			)
+		);
+
+		return array(
+			'income'  => floatval( $income ),
+			'expense' => floatval( $expense ),
+			'balance' => floatval( $income ) - floatval( $expense ),
+		);
 	}
 }

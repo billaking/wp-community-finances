@@ -15,53 +15,53 @@ if ( ! defined( 'WPINC' ) ) {
 
 	<?php if ( isset( $_GET['message'] ) && 'success' === $_GET['message'] ) : ?>
 		<div class="notice notice-success is-dismissible">
-			<p><?php esc_html_e( 'Transaction added successfully!', 'wp-community-finances' ); ?></p>
+			<p><?php esc_html_e( 'Transaction added successfully!', 'bk-finances' ); ?></p>
 		</div>
 	<?php endif; ?>
 
 	<?php if ( isset( $_GET['message'] ) && 'deleted' === $_GET['message'] ) : ?>
 		<div class="notice notice-success is-dismissible">
-			<p><?php esc_html_e( 'Transaction deleted successfully!', 'wp-community-finances' ); ?></p>
+			<p><?php esc_html_e( 'Transaction deleted successfully!', 'bk-finances' ); ?></p>
 		</div>
 	<?php endif; ?>
 
 	<div class="wcf-balance-summary" style="background: #fff; padding: 20px; margin: 20px 0; border-left: 4px solid #2271b1;">
-		<h2><?php esc_html_e( 'Balance Summary', 'wp-community-finances' ); ?></h2>
+		<h2><?php esc_html_e( 'Balance Summary', 'bk-finances' ); ?></h2>
 		<p>
-			<strong><?php esc_html_e( 'Total Income:', 'wp-community-finances' ); ?></strong> 
+			<strong><?php esc_html_e( 'Total Income:', 'bk-finances' ); ?></strong> 
 			<span style="color: green;">$<?php echo esc_html( number_format( $balance['income'], 2 ) ); ?></span>
 		</p>
 		<p>
-			<strong><?php esc_html_e( 'Total Expenses:', 'wp-community-finances' ); ?></strong> 
+			<strong><?php esc_html_e( 'Total Expenses:', 'bk-finances' ); ?></strong> 
 			<span style="color: red;">$<?php echo esc_html( number_format( $balance['expense'], 2 ) ); ?></span>
 		</p>
 		<p>
-			<strong><?php esc_html_e( 'Current Balance:', 'wp-community-finances' ); ?></strong> 
+			<strong><?php esc_html_e( 'Current Balance:', 'bk-finances' ); ?></strong> 
 			<span style="font-size: 1.2em; <?php echo $balance['balance'] >= 0 ? 'color: green;' : 'color: red;'; ?>">
 				$<?php echo esc_html( number_format( $balance['balance'], 2 ) ); ?>
 			</span>
 		</p>
 	</div>
 
-	<h2><?php esc_html_e( 'All Transactions', 'wp-community-finances' ); ?></h2>
+	<h2><?php esc_html_e( 'All Transactions', 'bk-finances' ); ?></h2>
 
 	<?php if ( empty( $transactions ) ) : ?>
-		<p><?php esc_html_e( 'No transactions found.', 'wp-community-finances' ); ?></p>
+		<p><?php esc_html_e( 'No transactions found.', 'bk-finances' ); ?></p>
 		<p>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcf-add-transaction' ) ); ?>" class="button button-primary">
-				<?php esc_html_e( 'Add Your First Transaction', 'wp-community-finances' ); ?>
+				<?php esc_html_e( 'Add Your First Transaction', 'bk-finances' ); ?>
 			</a>
 		</p>
 	<?php else : ?>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Date', 'wp-community-finances' ); ?></th>
-					<th><?php esc_html_e( 'Description', 'wp-community-finances' ); ?></th>
-					<th><?php esc_html_e( 'Category', 'wp-community-finances' ); ?></th>
-					<th><?php esc_html_e( 'Type', 'wp-community-finances' ); ?></th>
-					<th><?php esc_html_e( 'Amount', 'wp-community-finances' ); ?></th>
-					<th><?php esc_html_e( 'Actions', 'wp-community-finances' ); ?></th>
+					<th><?php esc_html_e( 'Date', 'bk-finances' ); ?></th>
+					<th><?php esc_html_e( 'Description', 'bk-finances' ); ?></th>
+					<th><?php esc_html_e( 'Category', 'bk-finances' ); ?></th>
+					<th><?php esc_html_e( 'Type', 'bk-finances' ); ?></th>
+					<th><?php esc_html_e( 'Amount', 'bk-finances' ); ?></th>
+					<th><?php esc_html_e( 'Actions', 'bk-finances' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -80,10 +80,10 @@ if ( ! defined( 'WPINC' ) ) {
 							$<?php echo esc_html( number_format( $transaction['amount'], 2 ) ); ?>
 						</td>
 						<td>
-							<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=wcf_delete_transaction&transaction_id=' . $transaction['id'] ), 'wcf_delete_transaction' ) ); ?>" 
+							<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=bk_fin_delete_transaction&transaction_id=' . $transaction['id'] ), 'bk_fin_delete_transaction' ) ); ?>" 
 							   class="button button-small"
-							   onclick="return confirm('<?php esc_attr_e( 'Are you sure you want to delete this transaction?', 'wp-community-finances' ); ?>');">
-								<?php esc_html_e( 'Delete', 'wp-community-finances' ); ?>
+							   onclick="return confirm('<?php esc_attr_e( 'Are you sure you want to delete this transaction?', 'bk-finances' ); ?>');">
+								<?php esc_html_e( 'Delete', 'bk-finances' ); ?>
 							</a>
 						</td>
 					</tr>
